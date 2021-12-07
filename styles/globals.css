@@ -9,7 +9,7 @@
     }
 
     .navBtn2 {
-        @apply  h-6 md:inline-flex cursor-pointer hover:scale-125
+        @apply  h-12 sm:h-6 md:inline-flex cursor-pointer hover:scale-125
         transition-all duration-150 ease-out;
     }
 

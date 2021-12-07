@@ -20,7 +20,7 @@ import {
 } from "@heroicons/react/outline";
 import { HeartIcon as HeartIconField } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db } from "../firebase";
 import Moment from "react-moment";
 
@@ -30,6 +30,7 @@ const Post = ({ id, username, userImage, img, caption }) => {
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
+  const commentRef = useRef(null);
 
   useEffect(
     () =>
@@ -111,7 +112,7 @@ const Post = ({ id, username, userImage, img, caption }) => {
             ) : (
               <HeartIcon onClick={likePost} className="btn pt-1" />
             )}
-            <ChatIcon className="btn pt-1" />
+            <ChatIcon onClick={() => commentRef.current.focus()} className="btn pt-1" />
             <PaperAirplaneIcon className="btn rotate-45 pb-1" />
           </div>
 
@@ -160,6 +161,7 @@ const Post = ({ id, username, userImage, img, caption }) => {
         <form className="flex items-center p-4">
           <EmojiHappyIcon className="h-7" />
           <input
+            ref={commentRef}
             type="text"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
